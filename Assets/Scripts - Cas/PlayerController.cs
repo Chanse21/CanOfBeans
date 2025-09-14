@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private bool isGrounded;
+    private bool jumpRequested = false; //Stores jump input until physics updates.
    
     void Start()
     {
@@ -28,13 +29,20 @@ public class PlayerController : MonoBehaviour
         // Detects if player presses space while they are moving on the ground. The player jumps.
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && isGrounded)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            jumpRequested = true;
         }
     }
     void FixedUpdate()
     {
-        // Gets A and D input, moving the player back and fourth.
+        // Gets horizontal movement 
         float moveInput = Input.GetAxisRaw("Horizontal");
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
+
+        // Apply jump if requested 
+        if (jumpRequested)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            jumpRequested = false; // Reset after jump
+        }
     }
 }

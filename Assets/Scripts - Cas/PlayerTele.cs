@@ -32,8 +32,11 @@ public class PlayerTele : MonoBehaviour
 
             // Tell UI how long cooldown is
             OnTeleportUsed?.Invoke(teleportCooldown);
+
+            // Camera delay
+            FindFirstObjectByType<SmoothCameraFollow>().SuspendCamera(0.4f);
         }
-        
+
     }
     void TryTeleport()
     {
