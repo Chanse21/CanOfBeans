@@ -1173,7 +1173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerRadius: 6
-  teleportCooldown: 2
+  teleportCooldown: 1
 --- !u!114 &611689145
 MonoBehaviour:
   m_ObjectHideFlags: 0
