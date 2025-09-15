@@ -6,7 +6,7 @@ public class SmoothCameraFollow : MonoBehaviour
 
     [Header("Camera Follow Settings")]
     public float smoothTime = 0.3f; // Default lag time
-    public float teleportDelay = 0.1f; // Length of pause after action
+    public float teleportDelay = 0.08f; // Length of pause after action
     public float maxOffSet = 3f; // Max distance player can move from the camera
 
     private Vector3 velocity = Vector3.zero;
