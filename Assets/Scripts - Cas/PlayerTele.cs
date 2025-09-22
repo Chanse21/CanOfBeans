@@ -65,12 +65,23 @@ public class PlayerTele : MonoBehaviour
         // 2. Spawn teleport beam effect
         if (beamPrefab != null)
         {
-            GameObject beam = Instantiate(beamPrefab, transform.position, Quaternion.identity);
+            GameObject beam = Instantiate(beamPrefab);
+            LineRenderer line = beam.GetComponent<LineRenderer>();
+
+            if (line != null)
+            {
+                // Set start and end positions
+                line.SetPosition(0, transform.position);  // Player’s current position
+                line.SetPosition(1, targetPos);           // Teleport destination
+            }
+
+            Destroy(beam, beamDuration); // Remove beam after short duration
+
             // Stretch/rotate beam to point to target
-            Vector3 dir = (targetPos - transform.position).normalized;
-            float distance = Vector3.Distance(transform.position, targetPos);
-            beam.transform.right = dir; // Align beam
-            beam.transform.localScale = new Vector3(distance, beam.transform.localScale.y, 1);
+           // Vector3 dir = (targetPos - transform.position).normalized;
+            // float distance = Vector3.Distance(transform.position, targetPos);
+            // beam.transform.right = dir; // Align beam
+            // beam.transform.localScale = new Vector3(distance, beam.transform.localScale.y, 1);
 
             Destroy(beam, beamDuration); // Remove beam after short duration
         }

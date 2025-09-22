@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class PlayerHealth1 : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
     [Header("Health Settings")]
     public int maxHealth = 25;
