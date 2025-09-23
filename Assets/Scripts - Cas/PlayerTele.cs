@@ -30,18 +30,13 @@ public class PlayerTele : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Check if user presses the right mouse button at any point. 
-        if (Input.GetMouseButtonDown(1) && Time.time >= nextTeleportTime)// Right-click
+        // Right-click to teleport if cooldown is up
+        if (Input.GetMouseButtonDown(1) && Time.time >= nextTeleportTime)
         {
-            // TryTeleport();        OLD TELEPORT   DON'T DELETE
-            // nextTeleportTime = Time.time + teleportCooldown;
-            // Tell UI how long cooldown is
-            // OnTeleportUsed?.Invoke(teleportCooldown);
-            // Camera delay
-            // FindFirstObjectByType<SmoothCameraFollow>().SuspendCamera(0.4f);
+            
             Vector3 targetPos = GetTeleportPosition();
 
-            // Start teleport coroutine (handles disappear, beam, reappear)
+            // Start teleport coroutine (handles disappear, beam, reappear, enemy)
             StartCoroutine(TeleportSequence(targetPos));
 
             // Set cooldown
@@ -55,14 +50,23 @@ public class PlayerTele : MonoBehaviour
         }
 
     }
-    //     NEW TEST!!!!!!
     IEnumerator TeleportSequence(Vector3 targetPos)
     {
         // 1. Hide player
         if (playerSprite != null)
             playerSprite.enabled = false;
 
-        // 2. Spawn teleport beam effect
+        // 2. Check for enemies along the teleport path
+        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position, targetPos);
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider != null && hit.collider.CompareTag("Enemy"))
+            {
+                Debug.Log("Enemy destroyed by teleport!");
+                Destroy(hit.collider.gameObject);
+            }
+        }
+        // 3. Spawn teleport beam effect
         if (beamPrefab != null)
         {
             GameObject beam = Instantiate(beamPrefab);
@@ -76,50 +80,16 @@ public class PlayerTele : MonoBehaviour
             }
 
             Destroy(beam, beamDuration); // Remove beam after short duration
-
-            // Stretch/rotate beam to point to target
-           // Vector3 dir = (targetPos - transform.position).normalized;
-            // float distance = Vector3.Distance(transform.position, targetPos);
-            // beam.transform.right = dir; // Align beam
-            // beam.transform.localScale = new Vector3(distance, beam.transform.localScale.y, 1);
-
-            Destroy(beam, beamDuration); // Remove beam after short duration
         }
+        // 4. Wait while invisible
         yield return new WaitForSeconds(disappearTime);
+        // 5. Move player
         transform.position = targetPos;
+        // 6. Re-enable sprite
         if (playerSprite != null)
             playerSprite.enabled = true;
     }
-    /*      OLD TELEPORT   DON'T DELETE
-        void TryTeleport()
-    {
-        // Get mouse position in world space
-        Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
-        mouseWorldPos.z = 0f;
-
-        // Direction from player to mouse
-        Vector3 direction = (mouseWorldPos - transform.position).normalized;
-
-        // Distance from player to click
-        float distance = Vector3.Distance(transform.position, mouseWorldPos);
-
-        Vector3 targetPos;
-
-        if (distance <= PlayerRadius)
-        {
-            // Within radius → teleport directly
-            targetPos = mouseWorldPos;
-        }
-        else
-        {
-            // Outside radius → teleport to edge of radius
-            targetPos = transform.position + direction * PlayerRadius;
-        }
-
-        transform.position = targetPos;
-
-    }
-    */
+    
     Vector3 GetTeleportPosition()
     {
         // Get mouse position in world space

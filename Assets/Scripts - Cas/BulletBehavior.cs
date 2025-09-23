@@ -16,38 +16,23 @@ public class BulletBehavior : MonoBehaviour
 
         // Move forward (bullet faces right by default in prefab)
         rb.linearVelocity = transform.right * speed;
-        // Ignore collisions with platforms
-        GameObject[] platforms = GameObject.FindGameObjectsWithTag("Ground");
-        foreach (GameObject plat in platforms)
-        {
-            Collider2D platCol = plat.GetComponent<Collider2D>();
-            Collider2D bulletCol = GetComponent<Collider2D>();
-            if (platCol != null && bulletCol != null)
-                Physics2D.IgnoreCollision(bulletCol, platCol);
-        }
 
-        // Destroy after a few seconds
+        // Destroy after lifetime so bullets don’t stack up
         Destroy(gameObject, lifetime);
+
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        // Check if bullet hit the player
-        if (collision.CompareTag("Player"))
+        // Check if we hit the player
+        PlayerHealth player = other.GetComponent<PlayerHealth>();
+        if (player != null)
         {
-            PlayerHealth ph = collision.GetComponent<PlayerHealth>();
-            if (ph != null)
-            {
-                ph.TakeDamage(damage);
-            }
-
-            Destroy(gameObject); // Destroy bullet on hit
+            Debug.Log("Bullet hit player!");
+            player.TakeDamage(damage);  // Deal damage
+            Destroy(gameObject);        // Remove bullet
         }
-
-        // Optional: destroy if bullet hits environment
-        if (collision.CompareTag("Wall"))
-        {
-            Destroy(gameObject);
-        }
+        
     }
 }
