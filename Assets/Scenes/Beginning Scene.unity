@@ -1607,7 +1607,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 11
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2152,11 +2152,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerRadius: 6
-  teleportCooldown: 1
+  teleportCooldown: 0.85
   beamPrefab: {fileID: 3929671897238303735, guid: 0c97a880cc9659f408ded21ea94432c5, type: 3}
   beamDuration: 0.2
   playerSprite: {fileID: 611689142}
-  disappearTime: 0.15
+  disappearTime: 0.1
 --- !u!114 &611689145
 MonoBehaviour:
   m_ObjectHideFlags: 0
