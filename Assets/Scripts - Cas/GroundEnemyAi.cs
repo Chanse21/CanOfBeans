@@ -123,6 +123,7 @@ public class GroundEnemyAi : MonoBehaviour
                 if (!tele.playerSprite.enabled)
                 {
                     Destroy(gameObject);
+                    Debug.Log("Enemy died");
                 }
             }
         }
