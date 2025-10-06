@@ -3,7 +3,7 @@ using UnityEngine;
 public class BulletBehavior : MonoBehaviour
 {
     [Header("Bullet Settings")]
-    public float speed = 5f;          // Speed of bullet
+    public float speed = 7f;          // Speed of bullet
     public float lifetime = 3f;       // Time before auto-destroy
     public int damage = 1;            // Damage dealt to player
 
@@ -17,7 +17,7 @@ public class BulletBehavior : MonoBehaviour
         // Move forward (bullet faces right by default in prefab)
         rb.linearVelocity = transform.right * speed;
 
-        // Destroy after lifetime so bullets don’t stack up
+        // Destroy after lifetime so bullets dont stack up
         Destroy(gameObject, lifetime);
 
     }
@@ -29,6 +29,7 @@ public class BulletBehavior : MonoBehaviour
         PlayerHealth player = other.GetComponent<PlayerHealth>();
         if (player != null)
         {
+            // If bullet hits player - Display log, Deal Damage and Destroy the bullet
             Debug.Log("Bullet hit player!");
             player.TakeDamage(damage);  // Deal damage
             Destroy(gameObject);        // Remove bullet
