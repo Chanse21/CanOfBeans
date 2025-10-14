@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 26058483}
   - component: {fileID: 26058485}
   - component: {fileID: 26058484}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground (5)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 119491383}
   - component: {fileID: 119491385}
   - component: {fileID: 119491384}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground (11)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 227077523}
   - component: {fileID: 227077525}
   - component: {fileID: 227077524}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground (10)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -563,7 +563,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 231480995}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 268992363}
   - component: {fileID: 268992365}
   - component: {fileID: 268992364}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -707,7 +707,7 @@ GameObject:
   - component: {fileID: 325198077}
   - component: {fileID: 325198079}
   - component: {fileID: 325198078}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground (13)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -842,7 +842,7 @@ GameObject:
   - component: {fileID: 346919014}
   - component: {fileID: 346919013}
   - component: {fileID: 346919012}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -863,6 +863,7 @@ RectTransform:
   m_Children:
   - {fileID: 851058477}
   - {fileID: 495291913}
+  - {fileID: 584025262}
   m_Father: {fileID: 68335035}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -944,7 +945,7 @@ GameObject:
   - component: {fileID: 368845320}
   - component: {fileID: 368845322}
   - component: {fileID: 368845321}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground (3)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -960,7 +961,7 @@ Transform:
   m_GameObject: {fileID: 368845319}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 19.6, y: -6.7, z: -0.02468567}
+  m_LocalPosition: {x: 19.73, y: -6.7, z: -0.02468567}
   m_LocalScale: {x: 156.52652, y: 6.8904357, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1165,7 +1166,7 @@ GameObject:
   - component: {fileID: 420929637}
   - component: {fileID: 420929639}
   - component: {fileID: 420929638}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground (7)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1385,7 +1386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 495291913}
   - component: {fileID: 495291914}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1665,7 +1666,7 @@ GameObject:
   - component: {fileID: 573933845}
   - component: {fileID: 573933847}
   - component: {fileID: 573933846}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground (8)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1799,8 +1800,8 @@ GameObject:
   - component: {fileID: 584025262}
   - component: {fileID: 584025261}
   - component: {fileID: 584025260}
-  m_Layer: 0
-  m_Name: Cursor
+  m_Layer: 31
+  m_Name: TeleportCusor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1815,9 +1816,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 584025259}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44012ed447d14b541ad5740ed52ebb47, type: 3}
+  m_Script: {fileID: 11500000, guid: 12e96729f64557741983b77f6bec4ee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 611689143}
+  mainCamera: {fileID: 519420031}
+  cursorSprite: {fileID: 584025261}
+  followSmoothness: 10
+  teleportRadius: 7
 --- !u!212 &584025261
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1870,7 +1876,7 @@ SpriteRenderer:
   m_Size: {x: 0.66, y: 0.66}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &584025262
@@ -1881,12 +1887,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 584025259}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 346919011}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &607781583
 GameObject:
@@ -1899,7 +1905,7 @@ GameObject:
   - component: {fileID: 607781584}
   - component: {fileID: 607781586}
   - component: {fileID: 607781585}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2151,12 +2157,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b90a804704503d5489a1c2780233cf20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerRadius: 6
+  PlayerRadius: 7
   teleportCooldown: 0.85
   beamPrefab: {fileID: 3929671897238303735, guid: 0c97a880cc9659f408ded21ea94432c5, type: 3}
   beamDuration: 0.2
   playerSprite: {fileID: 611689142}
   disappearTime: 0.1
+  isTeleporting: 0
+  teleportDuration: 0.2
 --- !u!114 &611689145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2269,7 +2277,7 @@ GameObject:
   - component: {fileID: 628474238}
   - component: {fileID: 628474240}
   - component: {fileID: 628474239}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground (4)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2434,7 +2442,7 @@ GameObject:
   - component: {fileID: 792097349}
   - component: {fileID: 792097348}
   - component: {fileID: 792097347}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2616,7 +2624,7 @@ GameObject:
   - component: {fileID: 851058479}
   - component: {fileID: 851058478}
   - component: {fileID: 851058480}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: Countdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2767,7 +2775,7 @@ GameObject:
   - component: {fileID: 852884664}
   - component: {fileID: 852884666}
   - component: {fileID: 852884665}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2929,7 +2937,7 @@ GameObject:
   - component: {fileID: 1138185530}
   - component: {fileID: 1138185532}
   - component: {fileID: 1138185531}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground (9)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -3142,7 +3150,7 @@ GameObject:
   - component: {fileID: 1275779829}
   - component: {fileID: 1275779831}
   - component: {fileID: 1275779830}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground (6)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -3361,7 +3369,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1493147164}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3399,7 +3407,7 @@ GameObject:
   - component: {fileID: 1506517927}
   - component: {fileID: 1506517929}
   - component: {fileID: 1506517928}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3561,7 +3569,7 @@ GameObject:
   - component: {fileID: 1684719092}
   - component: {fileID: 1684719091}
   - component: {fileID: 1684719090}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -3865,7 +3873,7 @@ MonoBehaviour:
   waitTime: 1
   bulletPrefab: {fileID: 5882672994294736678, guid: 1980465fd40eeda4ca961e9a9db1ea0b, type: 3}
   firePoint: {fileID: 668786375}
-  fireRate: 1
+  fireRate: 0.3
   visionRange: 9
   player: {fileID: 611689143}
 --- !u!1 &1851367261
@@ -3879,7 +3887,7 @@ GameObject:
   - component: {fileID: 1851367262}
   - component: {fileID: 1851367264}
   - component: {fileID: 1851367263}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground (12)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -4062,7 +4070,7 @@ GameObject:
   - component: {fileID: 1876179123}
   - component: {fileID: 1876179125}
   - component: {fileID: 1876179124}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground (15)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -4195,7 +4203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1953666149}
   - component: {fileID: 1953666150}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: CooldownBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4285,7 +4293,7 @@ GameObject:
   - component: {fileID: 1977917480}
   - component: {fileID: 1977917482}
   - component: {fileID: 1977917481}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground (14)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -4419,7 +4427,7 @@ GameObject:
   - component: {fileID: 1996215432}
   - component: {fileID: 1996215431}
   - component: {fileID: 1996215430}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -4585,5 +4593,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 518823278}
   - {fileID: 1804795870}
-  - {fileID: 584025262}
   - {fileID: 1863752059}
