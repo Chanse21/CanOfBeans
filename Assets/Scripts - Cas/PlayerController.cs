@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool jumpRequested = false; //Stores jump input until physics updates.
    
+    // CONTROLS A + D to MOVE Right click to teleport
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -34,8 +35,10 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
+        //JUMP IS BROKEN 
         // Gets horizontal movement 
         float moveInput = Input.GetAxisRaw("Horizontal");
+       
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
         // Apply jump if requested 
