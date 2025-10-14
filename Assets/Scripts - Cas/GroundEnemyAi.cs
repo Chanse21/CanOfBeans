@@ -119,11 +119,18 @@ public class GroundEnemyAi : MonoBehaviour
             PlayerTele tele = collision.GetComponent<PlayerTele>();
             if (tele != null)
             {
-                // If player is in teleport "invisible" state → kill enemy
-                if (!tele.playerSprite.enabled)
+                // Only die if player is teleporting
+                if (tele.isTeleporting)
                 {
                     Destroy(gameObject);
-                    Debug.Log("Enemy died");
+                    Debug.Log("Enemy killed via teleport");
+                }
+                else 
+                {
+                    PlayerHealth health = tele.GetComponent<PlayerHealth>();
+                    if (health != null)
+                    health.TakeDamage(1);
+                    Debug.Log("Player took 1 damage because they ran into the enemy");
                 }
             }
         }

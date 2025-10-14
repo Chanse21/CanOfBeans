@@ -21,6 +21,10 @@ public class PlayerTele : MonoBehaviour
     public SpriteRenderer playerSprite;     // Reference to the player’s sprite (drag in Inspector)
     public float disappearTime = 0.1f;      // How long player stays invisible
 
+    [Header("Teleport State")]
+    public bool isTeleporting = false;
+    public float teleportDuration = 0.2f; // how long the player is considered 'teleporting'
+
     void Start()
     {
         cam = Camera.main;
@@ -52,6 +56,8 @@ public class PlayerTele : MonoBehaviour
     }
     IEnumerator TeleportSequence(Vector3 targetPos)
     {
+        isTeleporting = true; // ✅ Start teleport state
+
         // 1. Hide player
         if (playerSprite != null)
             playerSprite.enabled = false;
@@ -88,6 +94,10 @@ public class PlayerTele : MonoBehaviour
         // 6. Re-enable sprite
         if (playerSprite != null)
             playerSprite.enabled = true;
+
+            // 7. End teleport state ✅
+        yield return new WaitForSeconds(teleportDuration);
+        isTeleporting = false;
     }
     
     Vector3 GetTeleportPosition()
