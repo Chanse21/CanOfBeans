@@ -3,17 +3,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
-    public float moveSpeed = 8f;
-    public float jumpForce = 16f;
-
-    [Header("Ground Check")]
-    public Transform groundCheck;
-    public float groundCheckRadius = 0.2f;
-    public LayerMask groundLayer;
+    public float moveSpeed = 8f; //Movement speed
+    public float jumpForce = 16f; //How high the player jumps
 
     private Rigidbody2D rb;
     private bool isGrounded;
-    private bool jumpRequested = false; //Stores jump input until physics updates.
+
    
     // CONTROLS A + D to MOVE Right click to teleport
     void Start()
@@ -23,29 +18,43 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // Constantaly checks if player is on the ground Layer.
-        // Make sure all ground objects have the layer label 'Ground'
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+         float moveInput = 0f;
+         
 
+         if (Input.GetKey("a"))
+         {
+            moveInput = -1f; //move left
+         }
+
+         if (Input.GetKey("d"))
+         {
+            moveInput = 1f; //move right
+         }
+          
+         //Apply movement using physics velocity
+         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
         // Detects if player presses space while they are moving on the ground. The player jumps.
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && isGrounded)
         {
-            jumpRequested = true;
-        }
-    }
-    void FixedUpdate()
-    {
-        //JUMP IS BROKEN 
-        // Gets horizontal movement 
-        float moveInput = Input.GetAxisRaw("Horizontal");
-       
-        rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
-
-        // Apply jump if requested 
-        if (jumpRequested)
-        {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            jumpRequested = false; // Reset after jump
         }
     }
-}
+
+        void OnCollisionEnter2D(Collision2D collision)
+        {
+            //Check if player landed on ground
+             if (collision.gameObject.CompareTag("Ground"))
+             {
+                isGrounded = true;
+             }
+        }
+
+        void OnCollisionExit2D(Collision2D collision)
+        {
+            //Check if player left the ground
+            if (collision.gameObject.CompareTag("Ground"))
+            {
+                isGrounded = false;
+            }
+        }
+    }
