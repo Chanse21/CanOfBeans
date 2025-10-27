@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private bool isGrounded;
+    public SpriteRenderer SR;
 
    
     // CONTROLS A + D to MOVE Right click to teleport
@@ -24,11 +25,14 @@ public class PlayerController : MonoBehaviour
          if (Input.GetKey("a"))
          {
             moveInput = -1f; //move left
+           SR.flipX = true;
          }
 
          if (Input.GetKey("d"))
          {
             moveInput = 1f; //move right
+            SR.flipX = false;
+
          }
           
          //Apply movement using physics velocity
