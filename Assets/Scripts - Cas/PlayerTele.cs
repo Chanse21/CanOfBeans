@@ -12,7 +12,7 @@ public class PlayerTele : MonoBehaviour
     public float PlayerRadius = 5f; // Players teleportation radius
     public float teleportCooldown = 3f;  // Time delay between teleports
     private float nextTeleportTime = 1f; // when player can teleport again
-    
+    //public int teleportcount = 1;
     public static event Action<float> OnTeleportUsed;
 
     [Header("Effects")]
@@ -35,7 +35,7 @@ public class PlayerTele : MonoBehaviour
     void Update()
     {
         // Right-click to teleport if cooldown is up
-        if (Input.GetMouseButtonDown(1) && Time.time >= nextTeleportTime)
+        if (Input.GetMouseButtonDown(1) && Time.time >= nextTeleportTime) //&& teleportcount >=1)
         {
             
             Vector3 targetPos = GetTeleportPosition();
@@ -51,6 +51,7 @@ public class PlayerTele : MonoBehaviour
 
             // Small camera suspend
             FindFirstObjectByType<SmoothCameraFollow>().SuspendCamera(0.4f);
+            //teleportcount -1;
         }
 
     }

@@ -20,6 +20,7 @@ public class TeleportCusor : MonoBehaviour
             mainCamera = Camera.main;
 
         Cursor.visible = false; // Hide system cursor 
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     // Update is called once per frame

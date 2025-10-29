@@ -22,12 +22,14 @@ public class GroundEnemyAi : MonoBehaviour
     private bool movingRight = false;
     private bool isPatrolling = true;
     private bool isShooting = false;
+    private SpriteRenderer SR;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         startPos = transform.position;
         StartCoroutine(PatrolRoutine());
+        SR = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -83,6 +85,10 @@ public class GroundEnemyAi : MonoBehaviour
 
             // Flip direction
             movingRight = !movingRight;
+            if (SR != null)
+            {
+                SR.flipX = movingRight; //flips horizontally depending on patrol direction
+            }
         }
     }
 
