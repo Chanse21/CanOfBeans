@@ -10,13 +10,6 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     public SpriteRenderer SR;
 
-    private bool isWallSliding;
-    private float wallSlidingSpeed = 2f;
-
-    [SerializeField] private Transform wallCheck;
-    [SerializeField] private LayerMask wallLayer;
-
-   
     // CONTROLS A + D to MOVE Right click to teleport
     void Start()
     {
@@ -49,25 +42,6 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
 
-        WallSlide();
-    }
-
-    private void isWalled()
-    {
-        return Physics2D.OverLapCircle(wallCheck.position, 0.2f, wallLayer);
-    }
-
-    private void WallSlide()
-    {
-        if (isWalled() && !IsGrounded() && horizontal != 0f)
-        {
-            isWallSliding = true;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Clamp(rb.linearVelocity.y, -wallSlidingSpeed, float.MaxValue));
-        }
-        else
-        {
-            isWallSliding = false;
-        }
     }
 
         void OnCollisionEnter2D(Collision2D collision)
