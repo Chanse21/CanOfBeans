@@ -4,6 +4,8 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 8f; //Movement speed
+    public float runSpeed = 12f; // faster movement
+    private float currentSpeed = 8f;
     public float jumpForce = 16f; //How high the player jumps
 
     private Rigidbody2D rb;
@@ -14,6 +16,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        currentSpeed = moveSpeed;
     }
 
     void Update()
@@ -33,9 +36,18 @@ public class PlayerController : MonoBehaviour
             SR.flipX = false; //facing direction
 
          }
+
+         if (Input.GetKey(KeyCode.LeftShift))
+         {
+            currentSpeed = runSpeed;
+         }
+         else
+         {
+            currentSpeed = moveSpeed;
+         }
           
          //Apply movement using physics velocity
-         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
+         rb.linearVelocity = new Vector2(moveInput * currentSpeed, rb.linearVelocity.y);
         // Detects if player presses space while they are moving on the ground. The player jumps.
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && isGrounded)
         {
